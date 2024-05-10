@@ -24,19 +24,19 @@ namespace fans
             IsAcceptState = false,
             Transitions = new Dictionary<char, State>()
         };
-        public State b = new State()
+        public static State b = new State()
         {
             Name = "b",
             IsAcceptState = false,
             Transitions = new Dictionary<char, State>()
         };
-        public State c = new State()
+        public static State c = new State()
         {
             Name = "c",
             IsAcceptState = false,
             Transitions = new Dictionary<char, State>()
         };
-        public State d = new State()
+        public static State d = new State()
         {
             Name = "d",
             IsAcceptState = true,
@@ -45,11 +45,11 @@ namespace fans
         public State e = new State()
         {
             Name = "e",
-            IsAcceptState = false,
+            IsAcceptState = true, 
             Transitions = new Dictionary<char, State>()
         };
 
-        State InitialState = a;  // Начальное состояние автомата
+        static State InitialState = a;  // Начальное состояние автомата
 
         // Конструктор класса FA1, определяющий переходы между состояниями
         public FA1()
@@ -76,12 +76,12 @@ namespace fans
             State current = InitialState;
             foreach (var c in s) // Цикл по всем символам входной строки
             {
-                current = current.Transitions[c]; // Переход в новое состояние в соответствии с текущим символом
-                if (current == null)              // Если переход невозможен (нет соответствующего состояния), возвращаем null
-                    return null;
-                // Иначе продолжаем обработку
+                if (!current.Transitions.ContainsKey(c))  // Проверяем, есть ли переход по текущему символу
+                    return null;  // Если нет, возвращаем null
+
+                current = current.Transitions[c];  // Переходим в новое состояние в соответствии с текущим символом
             }
-            return current.IsAcceptState;         // Возвращаем true, если достигнуто финальное состояние, иначе false
+            return current.IsAcceptState;  // Возвращаем true, если достигнуто финальное состояние, иначе false
         }
     }
     // дял классов FA@ и FA3 всё аналогично
