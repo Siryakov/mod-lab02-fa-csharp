@@ -18,55 +18,17 @@ namespace fans
     // Класс, реализующий конечный автомат FA1
     public class FA1
     {
-        // Определение состояний автомата FA1
-        public static State a = new State()
-        {
-            Name = "a",
-            IsAcceptState = false,
-            Transitions = new Dictionary<char, State>()
-        };
-        public State b = new State()
-        {
-            Name = "b",
-            IsAcceptState = false,
-            Transitions = new Dictionary<char, State>()
-        };
-        public State c = new State()
-        {
-            Name = "c",
-            IsAcceptState = false,
-            Transitions = new Dictionary<char, State>()
-        };
-        public State d = new State()
-        {
-            Name = "d",
-            IsAcceptState = false,
-            Transitions = new Dictionary<char, State>()
-        };
-        public State e = new State()
-        {
-            Name = "e",
-            IsAcceptState = true,
-            Transitions = new Dictionary<char, State>()
-        };
+        public static readonly State a = new State { Name = "a", IsAcceptState = false, Transitions = new Dictionary<char, State>() };
+        public static readonly State b = new State { Name = "b", IsAcceptState = true, Transitions = new Dictionary<char, State>() };
+        public static readonly State с = new State { Name = "с", IsAcceptState = true, Transitions = new Dictionary<char, State>() };
 
-        State InitialState = a;
+        public static readonly State InitialState = a;
         public FA1()
         {
             a.Transitions['0'] = b;
-            a.Transitions['1'] = c;
-
-            b.Transitions['0'] = d;
-            b.Transitions['1'] = e;
-
-            c.Transitions['0'] = e;
-            c.Transitions['1'] = c;
-
-            d.Transitions['0'] = d;
-            d.Transitions['1'] = d;
-
-            e.Transitions['0'] = d;
-            e.Transitions['1'] = e;
+            a.Transitions['1'] = a;
+            b.Transitions['1'] = с;
+            с.Transitions['1'] = с;
         }
 
         // Метод Run выполняет обработку входной последовательности символов и возвращает результат
