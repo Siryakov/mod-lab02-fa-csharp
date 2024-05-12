@@ -4,68 +4,79 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
- // Класс, реализующий конечный автомат FA1
- public class FA1
- {
-     // Определение состояний автомата FA1
-     public static State a = new State()
-     {
-         Name = "a",
-         IsAcceptState = false,
-         Transitions = new Dictionary<char, State>()
-     };
-     public State b = new State()
-     {
-         Name = "b",
-         IsAcceptState = false,
-         Transitions = new Dictionary<char, State>()
-     };
-     public State c = new State()
-     {
-         Name = "c",
-         IsAcceptState = false,
-         Transitions = new Dictionary<char, State>()
-     };
-     public State d = new State()
-     {
-         Name = "d",
-         IsAcceptState = false,
-         Transitions = new Dictionary<char, State>()
-     };
-     public State e = new State()
-     {
-         Name = "e",
-         IsAcceptState = true,
-         Transitions = new Dictionary<char, State>()
-     };
+namespace fans
+{
+    // Класс, представляющий состояние автомата
+    public class State
+    {
+        public string Name;  // Название состояния
+        public Dictionary<char, State> Transitions;  // Переходы из текущего состояния по символам
+        public bool IsAcceptState;  // Флаг, указывающий, является ли состояние финальным (принимающим)
+    }
 
-     State InitialState = a;
-     public FA1()
-     {
-         a.Transitions['0'] = b;
-         a.Transitions['1'] = c;
 
-         b.Transitions['0'] = d;
-         b.Transitions['1'] = e;
+    // Класс, реализующий конечный автомат FA1
+    public class FA1
+    {
+        // Определение состояний автомата FA1
+        public static State a = new State()
+        {
+            Name = "a",
+            IsAcceptState = false,
+            Transitions = new Dictionary<char, State>()
+        };
+        public State b = new State()
+        {
+            Name = "b",
+            IsAcceptState = false,
+            Transitions = new Dictionary<char, State>()
+        };
+        public State c = new State()
+        {
+            Name = "c",
+            IsAcceptState = false,
+            Transitions = new Dictionary<char, State>()
+        };
+        public State d = new State()
+        {
+            Name = "d",
+            IsAcceptState = false,
+            Transitions = new Dictionary<char, State>()
+        };
+        public State e = new State()
+        {
+            Name = "e",
+            IsAcceptState = true,
+            Transitions = new Dictionary<char, State>()
+        };
 
-         c.Transitions['0'] = e;
-         c.Transitions['1'] = c;
+        State InitialState = a;
+        public FA1()
+        {
+            a.Transitions['0'] = b;
+            a.Transitions['1'] = c;
 
-         d.Transitions['0'] = d;
-         d.Transitions['1'] = d;
+            b.Transitions['0'] = d;
+            b.Transitions['1'] = e;
 
-         e.Transitions['0'] = d;
-         e.Transitions['1'] = e;
-     }
+            c.Transitions['0'] = e;
+            c.Transitions['1'] = c;
 
-     // Метод Run выполняет обработку входной последовательности символов и возвращает результат
-     public bool? Run(IEnumerable<char> s)
-     {
-         State current = InitialState;
-         // Проверяем наличие перехода для всех символов во входной последовательности с использованием LINQ
-         return s.All(c => current.Transitions.TryGetValue(c, out current)) ? current.IsAcceptState : (bool?)null;
-     }
- }
+            d.Transitions['0'] = d;
+            d.Transitions['1'] = d;
+
+            e.Transitions['0'] = d;
+            e.Transitions['1'] = e;
+        }
+
+        // Метод Run выполняет обработку входной последовательности символов и возвращает результат
+        public bool? Run(IEnumerable<char> s)
+        {
+            State current = InitialState;
+            // Проверяем наличие перехода для всех символов во входной последовательности с использованием LINQ
+            return s.All(c => current.Transitions.TryGetValue(c, out current)) ? current.IsAcceptState : (bool?)null;
+        }
+    }
     // дял классов FA2 и FA3 всё аналогично
     public class FA2
     {
